@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Construction - Neon Cyberpunk</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-cyan: #00ffff;
+            --neon-pink: #ff00ff;
+            --neon-green: #00ff41;
+            --neon-blue: #0080ff;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #000000;
+            --grid-color: rgba(0, 255, 255, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Cyberpunk Grid Background */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Neon Lines */
+        .neon-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .neon-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            height: 2px;
+            animation: lineMove 8s ease-in-out infinite;
+        }
+
+        .neon-line:nth-child(1) {
+            top: 20%;
+            width: 300px;
+            animation-delay: 0s;
+        }
+
+        .neon-line:nth-child(2) {
+            top: 60%;
+            width: 400px;
+            background: linear-gradient(90deg, transparent, var(--neon-pink), transparent);
+            animation-delay: 2s;
+        }
+
+        .neon-line:nth-child(3) {
+            top: 80%;
+            width: 250px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            animation-delay: 4s;
+        }
+
+        @keyframes lineMove {
+            0% { left: -300px; opacity: 0; }
+            50% { opacity: 1; }
+            100% { left: 100%; opacity: 0; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .glitch-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-primary);
+            text-shadow: 
+                0 0 10px var(--neon-cyan),
+                0 0 20px var(--neon-cyan),
+                0 0 30px var(--neon-cyan);
+            animation: neonFlicker 2s ease-in-out infinite;
+        }
+
+        @keyframes neonFlicker {
+            0%, 100% {
+                text-shadow: 
+                    0 0 10px var(--neon-cyan),
+                    0 0 20px var(--neon-cyan),
+                    0 0 30px var(--neon-cyan);
+            }
+            50% {
+                text-shadow: 
+                    0 0 5px var(--neon-cyan),
+                    0 0 10px var(--neon-cyan),
+                    0 0 15px var(--neon-cyan);
+            }
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch-text::before {
+            animation: glitch1 2s infinite;
+            color: var(--neon-pink);
+            z-index: -1;
+        }
+
+        .glitch-text::after {
+            animation: glitch2 2s infinite;
+            color: var(--neon-green);
+            z-index: -2;
+        }
+
+        @keyframes glitch1 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        @keyframes glitch2 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-2px, 2px); }
+            80% { transform: translate(-2px, -2px); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin: 30px 0;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .terminal-container {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.5),
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--neon-cyan);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .terminal-dot:nth-child(2) {
+            background: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .terminal-dot:nth-child(3) {
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .terminal-title {
+            margin-left: 15px;
+            font-family: 'Orbitron', monospace;
+            color: var(--neon-cyan);
+        }
+
+        .terminal-content {
+            font-family: 'Courier New', monospace;
+            color: var(--neon-green);
+            line-height: 1.6;
+        }
+
+        .loading-bar {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .loading-text {
+            color: var(--neon-cyan);
+            margin-right: 15px;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
+            width: 0;
+            animation: loadingProgress 3s ease-out forwards;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: progressShine 2s ease-in-out infinite;
+        }
+
+        @keyframes loadingProgress {
+            to { width: 78%; }
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .services {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 80px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            color: var(--text-primary);
+            text-shadow: 0 0 20px var(--neon-pink);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .service-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--neon-blue);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-cyan);
+            box-shadow: 
+                0 0 30px rgba(0, 255, 255, 0.5),
+                0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-icon {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            display: block;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .service-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .service-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .contact {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 255, 255, 0.1));
+            position: relative;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .contact-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--neon-pink);
+            border-radius: 20px;
+            padding: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 0, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .contact-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-cyan);
+            box-shadow: 
+                0 0 30px rgba(255, 0, 255, 0.5),
+                0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            color: var(--neon-pink);
+            text-shadow: 0 0 20px var(--neon-pink);
+        }
+
+        .contact-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-info {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        footer {
+            background: var(--darker-bg);
+            border-top: 2px solid var(--neon-cyan);
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+        }
+
+        .footer-text {
+            font-family: 'Orbitron', monospace;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+            
+            .terminal-container {
+                margin: 40px 10px;
+                padding: 20px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .services, .contact {
+                padding: 60px 0;
+            }
+            
+            .services-grid, .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    
+    <div class="neon-lines">
+        <div class="neon-line"></div>
+        <div class="neon-line"></div>
+        <div class="neon-line"></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="hero-content">
+                <div class="glitch-container">
+                    <h1 class="hero-title glitch-text" data-text="SYSTEM OFFLINE">SYSTEM OFFLINE</h1>
+                </div>
+                <p class="hero-subtitle">Upgrading Neural Networks...</p>
+                
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="terminal-dot"></div>
+                            <div class="terminal-dot"></div>
+                            <div class="terminal-dot"></div>
+                        </div>
+                        <div class="terminal-title">NEXUS_TERMINAL_v2.1</div>
+                    </div>
+                    <div class="terminal-content">
+                        <div>> Initializing quantum processors...</div>
+                        <div>> Loading cybernetic enhancements...</div>
+                        <div>> Establishing neural link...</div>
+                        <div class="loading-bar">
+                            <span class="loading-text">PROGRESS:</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+                            <span style="margin-left: 15px; color: var(--neon-green);">78%</span>
+                        </div>
+                        <div>> Status: <span style="color: var(--neon-cyan);">UPGRADING</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">Core Modules</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="service-icon">🔮</span>
+                    <h3 class="service-title">AI Interface</h3>
+                    <p class="service-description">Advanced artificial intelligence systems for next-generation user interactions and automated processes.</p>
+                </div>
+                
+                <div class="service-card">
+                    <span class="service-icon">⚡</span>
+                    <h3 class="service-title">Quantum Computing</h3>
+                    <p class="service-description">Lightning-fast processing power using quantum algorithms for complex computational tasks.</p>
+                </div>
+                
+                <div class="service-card">
+                    <span class="service-icon">🛡️</span>
+                    <h3 class="service-title">Cyber Security</h3>
+                    <p class="service-description">Military-grade encryption and protection protocols to secure your digital infrastructure.</p>
+                </div>
+                
+                <div class="service-card">
+                    <span class="service-icon">🌐</span>
+                    <h3 class="service-title">Neural Networks</h3>
+                    <p class="service-description">Interconnected systems that learn and adapt to provide intelligent solutions and insights.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact">
+        <div class="container">
+            <h2 class="section-title">Connect Interface</h2>
+            <div class="contact-grid">
+                <a href="mailto:admin@cybercorp.com" class="contact-card">
+                    <span class="contact-icon">📡</span>
+                    <h3 class="contact-title">Data Link</h3>
+                    <p class="contact-info">admin@cybercorp.com</p>
+                </a>
+                
+                <a href="https://linkedin.com/company/cybercorp" class="contact-card">
+                    <span class="contact-icon">🔗</span>
+                    <h3 class="contact-title">Network Node</h3>
+                    <p class="contact-info">@cybercorp</p>
+                </a>
+                
+                <a href="tel:+1234567890" class="contact-card">
+                    <span class="contact-icon">📞</span>
+                    <h3 class="contact-title">Voice Channel</h3>
+                    <p class="contact-info">+1 (234) 567-890</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="footer-text">&copy; 2025 CyberCorp Industries | Neural Link Established</p>
+        </div>
+    </footer>
+
+    <script>
+        // Terminal typing effect
+        function typeText(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, speed);
+        }
+
+        // Initialize terminal animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const terminalLines = document.querySelectorAll('.terminal-content > div:not(.loading-bar)');
+            terminalLines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.style.opacity = '1';
+                }, index * 800);
+            });
+        });
+
+        // Glitch effect on scroll
+        window.addEventListener('scroll', function() {
+            const glitchText = document.querySelector('.glitch-text');
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            if (scrolled > 100) {
+                glitchText.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Random neon flicker for service icons
+        setInterval(() => {
+            const icons = document.querySelectorAll('.service-icon, .contact-icon');
+            icons.forEach(icon => {
+                if (Math.random() > 0.7) {
+                    icon.style.textShadow = `
+                        0 0 5px currentColor,
+                        0 0 10px currentColor,
+                        0 0 15px currentColor,
+                        0 0 20px currentColor
+                    `;
+                    setTimeout(() => {
+                        icon.style.textShadow = '0 0 20px currentColor';
+                    }, 200);
+                }
+            });
+        }, 3000);
+    </script>
+</body>
+</html>
