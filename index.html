@@ -625,12 +625,12 @@ window.sendNotify = function() {
   messageContainer.style.color = 'var(--muted)';
 
   // Send to backend
-  fetch('https://zdxcrzbbyenfdiwuzjdu.supabase.co/rest/v1/user_email', {
+  fetch('https://hkodmxexareombzffugp.supabase.co/rest/v1/user_email', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkeGNyemJieWVuZmRpd3V6amR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc2OTg5NjEsImV4cCI6MjA3MzI3NDk2MX0.jU9kgGwJFuCf1mI4Te5szrxKbi_RUVAsEbyLRkRF8n4',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkeGNyemJieWVuZmRpd3V6amR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc2OTg5NjEsImV4cCI6MjA3MzI3NDk2MX0.jU9kgGwJFuCf1mI4Te5szrxKbi_RUVAsEbyLRkRF8n4',
+      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhrb2RteGV4YXJlb21iemZmdWdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk4MjExNzAsImV4cCI6MjA3NTM5NzE3MH0._1TkoFXp4Nysu1yRpHv2ds5s6aAzFHh_5B_diTXe7Fs',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhrb2RteGV4YXJlb21iemZmdWdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk4MjExNzAsImV4cCI6MjA3NTM5NzE3MH0._1TkoFXp4Nysu1yRpHv2ds5s6aAzFHh_5B_diTXe7Fs',
       'Prefer': 'return=minimal'
     },
     body: JSON.stringify({ email })
@@ -698,3 +698,4 @@ window.sendNotify = function() {
 </script>
 </body>
 </html>
+
