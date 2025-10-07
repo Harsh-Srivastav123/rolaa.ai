@@ -538,20 +538,67 @@ const emailInput = document.getElementById('notifyEmail');
   emailInput.addEventListener('input', checkEmailValidity);
 
   function checkEmailValidity() {
-    const email = emailInput.value.trim();
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isValid = emailPattern.test(email);
-
-    if (isValid) {
-      notifyButton.removeAttribute('disabled');
-      notifyButton.style.opacity = '1';
-      notifyButton.style.cursor = 'pointer';
-    } else {
-      notifyButton.setAttribute('disabled', 'true');
-      notifyButton.style.opacity = '0.5';
-      notifyButton.style.cursor = 'not-allowed';
-    }
-  }
+    const email = emailInput.value.trim();
+    
+    // More comprehensive email validation
+    const emailPattern = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    
+    // Check basic pattern
+    if (!emailPattern.test(email)) {
+      notifyButton.setAttribute('disabled', 'true');
+      notifyButton.style.opacity = '0.5';
+      notifyButton.style.cursor = 'not-allowed';
+      return;
+    }
+    
+    // Extract domain and TLD
+    const parts = email.split('@');
+    if (parts.length !== 2) {
+      notifyButton.setAttribute('disabled', 'true');
+      notifyButton.style.opacity = '0.5';
+      notifyButton.style.cursor = 'not-allowed';
+      return;
+    }
+    
+    const domain = parts[1].toLowerCase();
+    const domainParts = domain.split('.');
+    
+    // Must have at least 2 parts (domain.tld)
+    if (domainParts.length < 2) {
+      notifyButton.setAttribute('disabled', 'true');
+      notifyButton.style.opacity = '0.5';
+      notifyButton.style.cursor = 'not-allowed';
+      return;
+    }
+    
+    // Get TLD (last part)
+    const tld = domainParts[domainParts.length - 1];
+    
+    // Valid TLDs list (common ones)
+    const validTLDs = ['com', 'org', 'net', 'edu', 'gov', 'mil', 'int', 'co', 'io', 'ai', 'app', 'dev', 'tech', 'xyz', 'online', 'store', 'site', 'blog', 'info', 'biz', 'name', 'us', 'uk', 'ca', 'au', 'de', 'fr', 'it', 'es', 'nl', 'be', 'ch', 'at', 'se', 'no', 'dk', 'fi', 'pl', 'cz', 'ru', 'in', 'cn', 'jp', 'kr', 'br', 'mx', 'ar', 'cl', 'za'];
+    
+    // TLD must be at least 2 characters and in valid list
+    if (tld.length < 2 || !validTLDs.includes(tld)) {
+      notifyButton.setAttribute('disabled', 'true');
+      notifyButton.style.opacity = '0.5';
+      notifyButton.style.cursor = 'not-allowed';
+      return;
+    }
+    
+    // Check for common typos in popular domains
+    const suspiciousDomains = ['gamil.com', 'gmial.com', 'gmai.com', 'yahooo.com', 'yaho.com', 'hotmial.com', 'outlok.com'];
+    if (suspiciousDomains.includes(domain)) {
+      notifyButton.setAttribute('disabled', 'true');
+      notifyButton.style.opacity = '0.5';
+      notifyButton.style.cursor = 'not-allowed';
+      return;
+    }
+    
+    // All checks passed
+    notifyButton.removeAttribute('disabled');
+    notifyButton.style.opacity = '1';
+    notifyButton.style.cursor = 'pointer';
+  }
 
 // Handle the notification process
 window.sendNotify = function() {
